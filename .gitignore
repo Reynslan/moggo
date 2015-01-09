@@ -3,3 +3,4 @@ builds/*
 components/scripts/BabelExt.js
 components/scripts/thirdparty/*
 components/graphics/*
+components/scripts/browser_specific/Chrome/background.js
