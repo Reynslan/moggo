@@ -1,5 +1,7 @@
 node_modules
 builds/*
+dist/*
+addon-sdk-1.17/*
 components/scripts/BabelExt.js
 components/scripts/thirdparty/*
 components/graphics/*

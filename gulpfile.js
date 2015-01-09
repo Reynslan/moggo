@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	jshint = require('gulp-jshint'),
 	del = require('del'),
 	gulpif = require('gulp-if'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	zip = require('gulp-zip');
 	
 var env, outputDir;
 
@@ -24,7 +25,6 @@ gulp.task('default', ['firefox', 'chrome']);
 gulp.task('watch', function() {
 	gulp.watch('components/jsx/extension.js', ['extension-js-ff', 'extension-js-chrome']);
 });
-
 
 gulp.task('extension-js-ff', function(){
   gulp.src('components/jsx/extension.js')
@@ -117,4 +117,11 @@ gulp.task('chrome-specific-js', function() {
 
 gulp.task('clean', function(cb) {
 	del(['builds/**/*'], cb);
+});
+
+// Dist tasks
+gulp.task('chrome-zip', function() {
+	gulp.src('builds/production/chrome/**/*')
+		.pipe(zip('moggo.zip'))
+		.pipe(gulp.dest('dist/chrome'));
 });
