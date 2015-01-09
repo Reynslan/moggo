@@ -1,0 +1,5 @@
+node_modules
+builds/*
+components/scripts/BabelExt.js
+components/scripts/thirdparty/*
+components/graphics/*
