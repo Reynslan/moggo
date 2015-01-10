@@ -97,7 +97,7 @@
 					display: "none"
 				};
 				return (
-					<label className="mbl-extension-ui-clickable">
+					<label className="mbl-extension-ui-clickable" id={this.props.name}>
 						<input
 							style={inputStyle}
 							type="checkbox"
@@ -135,7 +135,7 @@
 	var WordList = React.createClass({
 		
 		createItem: function(itemText, i) {
-			return <li key={i++} className="keyword_item">{itemText} <DeleteBtn handleDelete={this.props.handleDelete} itemText={itemText} /></li>;
+			return <li key={i++} className="keyword_item">{itemText} <DeleteBtn handleDelete={this.props.handleDelete} itemText={itemText} idNumber={i}/></li>;
 		},
 
 		render: function() {
@@ -148,7 +148,7 @@
 	var DeleteBtn = React.createClass({
 		render: function() {
 			return (
-						<img className="mbl-extension-ui-clickable" onClick={this.props.handleDelete.bind(null, this.props.itemText)} src={replace_with_delete_graphic} />
+						<img className="mbl-extension-ui-clickable" onClick={this.props.handleDelete.bind(null, this.props.itemText)} src={replace_with_delete_graphic} id={"mbl-extension-keyword-" + this.props.idNumber}/>
 					);
 		}
 	});
@@ -249,8 +249,8 @@
             return	(
 						<div>
 							<h1>Stillingar</h1>
-							<label onClick={this.handleSaveSettings} className="mbl-extension-ui-border mbl-extension-ui-hover mbl-extension-ui-clickable"><img src={replace_with_save_graphic} />Vista</label>
-							<label onClick={this.handleCancelSettings} className="mbl-extension-ui-border mbl-extension-ui-hover mbl-extension-ui-clickable"><img src={replace_with_cancel_graphic} />Hætta við</label>
+							<label onClick={this.handleSaveSettings} id="mbl-extension-save" className="mbl-extension-ui-border mbl-extension-ui-hover mbl-extension-ui-clickable"><img src={replace_with_save_graphic} />Vista</label>
+							<label onClick={this.handleCancelSettings} id="mbl-extension-cancel" className="mbl-extension-ui-border mbl-extension-ui-hover mbl-extension-ui-clickable"><img src={replace_with_cancel_graphic} />Hætta við</label>
 							<h3>Blokka flokk:</h3>
 							<ListOfCheckboxes retrievedCategoriesSettings={this.props.retrievedCategoriesSettings}/>
 							<h3>Blokka það sem inniheldur:</h3>
