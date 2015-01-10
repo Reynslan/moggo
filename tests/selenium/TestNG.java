@@ -15,62 +15,62 @@ import org.testng.annotations.Test;
 
 public class TestNG {
 	public static WebDriver driver;
-	
+
 	@Test
-	
-    public static void main() {
-		
+
+	public static void main() {
+
 		//Test saving and deleting keyword
-        driver.findElement(By.id("mbl-extension-open")).click();
-        driver.findElement(By.id("mbl-extension-keyword-input")).sendKeys("keywordtofilter");
-        driver.findElement(By.id("mbl-extension-addbutton")).click();
-        driver.findElement(By.id("mbl-extension-save")).click();
-        driver.findElement(By.id("mbl-extension-open")).click();
-        Assert.assertEquals("keywordtofilter", driver.findElement(By.className("keyword_item")).getText());
-        driver.findElement(By.id("mbl-extension-keyword-1")).click();
-        driver.findElement(By.id("mbl-extension-save")).click();
-        driver.findElement(By.id("mbl-extension-open")).click();
-        Assert.assertFalse(driver.getPageSource().contains("keywordtofilter"));
-        
-        //Test blocking and unblocking categories
-        driver.findElement(By.id("vidskipti_checkbox")).click();
-        driver.findElement(By.id("mbl-extension-save")).click();
-        driver.findElement(By.id("mbl-extension-open")).click();
-        Assert.assertEquals("Viðskipti - blokkað", driver.findElement(By.id("vidskipti_checkbox")).getText());
-        driver.findElement(By.id("vidskipti_checkbox")).click();
-        driver.findElement(By.id("mbl-extension-save")).click();
-        driver.findElement(By.id("mbl-extension-open")).click();
-        Assert.assertEquals("Viðskipti", driver.findElement(By.id("vidskipti_checkbox")).getText());
-    }
-    
-    @BeforeMethod
+		driver.findElement(By.id("mbl-extension-open")).click();
+		driver.findElement(By.id("mbl-extension-keyword-input")).sendKeys("keywordtofilter");
+		driver.findElement(By.id("mbl-extension-addbutton")).click();
+		driver.findElement(By.id("mbl-extension-save")).click();
+		driver.findElement(By.id("mbl-extension-open")).click();
+		Assert.assertEquals("keywordtofilter", driver.findElement(By.className("keyword_item")).getText());
+		driver.findElement(By.id("mbl-extension-keyword-1")).click();
+		driver.findElement(By.id("mbl-extension-save")).click();
+		driver.findElement(By.id("mbl-extension-open")).click();
+		Assert.assertFalse(driver.getPageSource().contains("keywordtofilter"));
 
-    public void beforeMethod() throws IOException {
-    	
-    	File file = new File("moggo.xpi");
-    	FirefoxProfile firefoxProfile = new FirefoxProfile();
-    	firefoxProfile.addExtension(file);
-    	
-    	// Create a new instance of the Firefox driver
+		//Test blocking and unblocking categories
+		driver.findElement(By.id("vidskipti_checkbox")).click();
+		driver.findElement(By.id("mbl-extension-save")).click();
+		driver.findElement(By.id("mbl-extension-open")).click();
+		Assert.assertEquals("Viðskipti - blokkað", driver.findElement(By.id("vidskipti_checkbox")).getText());
+		driver.findElement(By.id("vidskipti_checkbox")).click();
+		driver.findElement(By.id("mbl-extension-save")).click();
+		driver.findElement(By.id("mbl-extension-open")).click();
+		Assert.assertEquals("Viðskipti", driver.findElement(By.id("vidskipti_checkbox")).getText());
+	}
 
-        driver = new FirefoxDriver(firefoxProfile);
+	@BeforeMethod
 
-        //Put a Implicit wait, this means that any search for elements on the page could take the time the implicit wait is set for before throwing exception
+	public void beforeMethod() throws IOException {
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		File file = new File("moggo.xpi");
+		FirefoxProfile firefoxProfile = new FirefoxProfile();
+		firefoxProfile.addExtension(file);
 
-        //Launch the website
+		// Create a new instance of the Firefox driver
 
-        driver.get("http://www.mbl.is");
+		driver = new FirefoxDriver(firefoxProfile);
 
-    }
-    
-    @AfterMethod
+		//Put a Implicit wait, this means that any search for elements on the page could take the time the implicit wait is set for before throwing exception
 
-    public void afterMethod() {
-    	
-  	  	// Close the driver
-    	driver.quit();
-    }
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+		//Launch the website
+
+		driver.get("http://www.mbl.is");
+
+	}
+
+	@AfterMethod
+
+	public void afterMethod() {
+
+		// Close the driver
+		driver.quit();
+	}
 
 }
