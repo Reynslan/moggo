@@ -1,1 +1,1 @@
-The Firefox Addon SDK requires you have a README.md present.
+Enhance mbl.is.
