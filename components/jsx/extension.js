@@ -78,7 +78,7 @@
 			BabelExt.css.render();
 			
 			return (
-						<label className="mbl-extension-ui-border mbl-extension-ui-hover mbl-extension-ui-clickable" onClick={this.handleOpenSettings} id="mbl-extension-open"><img src={replace_with_settings_graphic} />moggó stillingar</label>
+						<label className="mbl-extension-ui-border mbl-extension-ui-hover mbl-extension-ui-clickable" onClick={this.handleOpenSettings} id="mbl-extension-open"><img src={replace_with_settings_graphic} />Moggó stillingar</label>
 					);
         }
     });
