@@ -24,7 +24,7 @@
 	
 	for (var k = 0; k < allNewsItems.length; k++)
 	{
-		allNewsItems_text.push(allNewsItems[k].textContent.replace(/[\u00AD\u002D\u2011]+|Meira\s*$/g,'').toLowerCase());
+		allNewsItems_text.push(allNewsItems[k].textContent.replace(/[\u00AD]+|Meira\s*$/g,'').toLowerCase());
 		allNewsItems[k].id = "mbl-extension-id-" + k;
 	}
 	
@@ -173,7 +173,9 @@
 			if (this.state.text !== "")
 			{
 			e.preventDefault();
-			var nextItems = this.state.items.concat([this.state.text]);
+			//User possibly copy and pastes text with soft hyphens, remove them.
+			var textMinusSoftHyphens = this.state.text.replace(/[\u00AD]+/g,'');
+			var nextItems = this.state.items.concat([textMinusSoftHyphens]);
 			var nextText = '';
 			this.setState({items: nextItems, text: nextText});
 			}
