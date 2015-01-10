@@ -28,10 +28,12 @@
 		allNewsItems[k].id = "mbl-extension-id-" + k;
 	}
 	
-	var extensionDomNode = "main-nav";
-	var nodeContent = document.getElementById(extensionDomNode);
-
-	nodeContent.innerHTML += '<div id="mbl-extension"></div>';
+	//Insert element for extension to mount
+	var nodeForExtension = document.createElement("span");
+	nodeForExtension.id = "mbl-extension";
+	var nodeMainContent = document.getElementById("main-content");
+	var parentDiv = nodeMainContent.parentNode;
+	parentDiv.insertBefore(nodeForExtension, nodeMainContent);
 	
 	
 	var MainPanel = React.createClass({
