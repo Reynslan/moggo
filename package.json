@@ -35,11 +35,11 @@
     "globals": {
         "replace_with_settings_graphic": "",
         "replace_with_boxchecked_graphic" : "",
-		"replace_with_boxblank_graphic": "",
+        "replace_with_boxblank_graphic": "",
         "replace_with_delete_graphic" : "",
-		"replace_with_addcircle_graphic": "",
+        "replace_with_addcircle_graphic": "",
         "replace_with_save_graphic" : "",
-		"replace_with_cancel_graphic": ""
+        "replace_with_cancel_graphic": ""
     }
   },
   "license": "GPL-3.0",
