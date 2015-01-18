@@ -3,9 +3,11 @@ var gulp = require('gulp'),
 	react = require('gulp-react'),
 	replace = require('gulp-replace'),
 	jshint = require('gulp-jshint'),
+	browserify = require('gulp-browserify'),
 	del = require('del'),
 	gulpif = require('gulp-if'),
 	uglify = require('gulp-uglify'),
+	runSequence = require('run-sequence'),
 	zip = require('gulp-zip');
 	
 var env, outputDir;
@@ -17,17 +19,32 @@ if (env==='development') {
 } else {
 	outputDir = 'builds/production/';
 }
-	
-gulp.task('firefox', ['extension-js-ff', 'thirdparty-js-ff', 'babelext-js-ff', 'graphics-ff', 'ff-specific-js', 'ff-specific']);
-gulp.task('chrome', ['extension-js-chrome', 'thirdparty-js-chrome', 'babelext-js-chrome', 'graphics-chrome', 'chrome-specific-js', 'chrome-specific']);
-gulp.task('default', ['firefox', 'chrome']);
 
-gulp.task('watch', function() {
-	gulp.watch('components/jsx/extension.js', ['extension-js-ff', 'extension-js-chrome']);
+gulp.task('default', function() {
+	runSequence('clean',
+				['firefox', 'chrome']
+				);
 });
 
-gulp.task('extension-js-ff', function(){
-  gulp.src('components/jsx/extension.js')
+gulp.task('watch', function() {
+	gulp.watch('components/jsx/*.js', ['default']);
+});
+
+gulp.task('firefox', function() {
+	runSequence('jsx-js-ff',
+				['extension-js-ff', 'thirdparty-js-ff', 'babelext-js-ff', 'graphics-ff', 'ff-specific-js', 'ff-specific']
+				);
+});
+
+gulp.task('chrome', function() {
+	runSequence('jsx-js-chrome',
+				['extension-js-chrome', 'thirdparty-js-chrome', 'babelext-js-chrome', 'graphics-chrome', 'chrome-specific-js', 'chrome-specific'],
+				'chrome-zip'
+				);
+});
+
+gulp.task('jsx-js-ff', function(){
+  return gulp.src('components/jsx/*.js')
     .pipe(replace('replace_with_settings_graphic', 'self.options.pngUrl_settings'))
 	.pipe(replace('replace_with_boxchecked_graphic', 'self.options.pngUrl_checkBoxChecked'))
 	.pipe(replace('replace_with_boxblank_graphic', 'self.options.pngUrl_checkBoxBlank'))
@@ -39,12 +56,11 @@ gulp.task('extension-js-ff', function(){
 	.pipe(jshint())
     .pipe(jshint.reporter('default'))
 	.pipe(jshint.reporter('fail'))
-	.pipe(gulpif(env === 'production', uglify()))
-    .pipe(gulp.dest(outputDir + 'Firefox/data'));
+    .pipe(gulp.dest('components/jsx/precompiled/firefox'));
 });
 
-gulp.task('extension-js-chrome', function(){
-  gulp.src('components/jsx/extension.js')
+gulp.task('jsx-js-chrome', function(){
+  return gulp.src('components/jsx/*.js')
     .pipe(replace('replace_with_settings_graphic', 'chrome.extension.getURL("graphics/ic_settings_applications_black_18dp.png")'))
 	.pipe(replace('replace_with_boxchecked_graphic', 'chrome.extension.getURL("graphics/ic_check_box_black_18dp.png")'))
 	.pipe(replace('replace_with_boxblank_graphic', 'chrome.extension.getURL("graphics/ic_check_box_outline_blank_black_18dp.png")'))
@@ -56,12 +72,25 @@ gulp.task('extension-js-chrome', function(){
 	.pipe(jshint())
     .pipe(jshint.reporter('default'))
 	.pipe(jshint.reporter('fail'))
+    .pipe(gulp.dest('components/jsx/precompiled/chrome'));
+});
+
+gulp.task('extension-js-ff', function(){
+  return gulp.src('components/jsx/precompiled/firefox/extension.js')
+	.pipe(browserify())
+	.pipe(gulpif(env === 'production', uglify()))
+    .pipe(gulp.dest(outputDir + 'Firefox/data'));
+});
+
+gulp.task('extension-js-chrome', function(){
+  return gulp.src('components/jsx/precompiled/chrome/extension.js')
+	.pipe(browserify())
 	.pipe(gulpif(env === 'production', uglify()))
     .pipe(gulp.dest(outputDir + 'Chrome'));
 });
 
 gulp.task('thirdparty-js-ff', function() {
-	gulp.src('components/scripts/thirdparty/*.js')
+	return gulp.src('components/scripts/thirdparty/*.js')
 		.pipe(gulpif(env === 'production', uglify()))
 		.pipe(gulp.dest(outputDir + 'Firefox/data/thirdparty'));
 });
@@ -73,7 +102,7 @@ gulp.task('thirdparty-js-chrome', function() {
 });
 
 gulp.task('babelext-js-ff', function() {
-	gulp.src('components/scripts/BabelExt.js')
+	return gulp.src('components/scripts/BabelExt.js')
 		.pipe(gulpif(env === 'production', uglify()))
 		.pipe(gulp.dest(outputDir + 'Firefox/data'));
 });
@@ -85,7 +114,7 @@ gulp.task('babelext-js-chrome', function() {
 });
 
 gulp.task('graphics-ff', function() {
-	gulp.src('components/graphics/*.png')
+	return gulp.src('components/graphics/*.png')
 		.pipe(gulp.dest(outputDir + 'Firefox/data/graphics'));
 });
 
@@ -95,7 +124,7 @@ gulp.task('graphics-chrome', function() {
 });
 
 gulp.task('ff-specific', function() {
-	gulp.src('components/browser_specific/Firefox/*.*')
+	return gulp.src('components/browser_specific/Firefox/*.*')
 		.pipe(gulp.dest(outputDir + 'Firefox'));
 });
 
@@ -105,7 +134,7 @@ gulp.task('chrome-specific', function() {
 });
 
 gulp.task('ff-specific-js', function() {
-	gulp.src('components/scripts/browser_specific/Firefox/lib/main.js')
+	return gulp.src('components/scripts/browser_specific/Firefox/lib/main.js')
 		.pipe(gulp.dest(outputDir + 'Firefox/lib'));
 });
 
@@ -121,7 +150,7 @@ gulp.task('clean', function(cb) {
 
 // Dist tasks
 gulp.task('chrome-zip', function() {
-	gulp.src('builds/production/chrome/**/*')
+	gulp.src(outputDir + '/chrome/**/*')
 		.pipe(zip('moggo.zip'))
 		.pipe(gulp.dest('dist/chrome'));
 });

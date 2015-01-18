@@ -15,10 +15,7 @@
 					"*://*.mbl.is/*"
 				],
 				"js": [
-						"thirdparty/react.js",
 						"thirdparty/routie.js",
-						"thirdparty/sizzle.js",
-						"thirdparty/lodash.js",
 						"BabelExt.js",
 						"extension.js"],
 						"run_at": "document_end"

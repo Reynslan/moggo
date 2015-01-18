@@ -47,10 +47,7 @@ pageMod.PageMod({
 	include: ["*.mbl.is"],
 	contentScriptWhen: 'ready',
 	contentScriptFile: [
-		self.data.url('thirdparty/react.js'),
 		self.data.url('thirdparty/routie.js'),
-		self.data.url('thirdparty/sizzle.js'),
-		self.data.url('thirdparty/lodash.js'),
 		self.data.url('BabelExt.js'),
 		self.data.url('extension.js')
 	],
