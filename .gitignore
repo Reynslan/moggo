@@ -2,8 +2,9 @@ node_modules
 builds
 dist
 addon-sdk-1.17
-components/jsx/precompiled
+components/scripts/preprocessed
 components/scripts/BabelExt.js
 components/scripts/thirdparty
 components/graphics
 components/scripts/browser_specific/Chrome/background.js
+npm-debug.log

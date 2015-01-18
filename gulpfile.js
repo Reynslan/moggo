@@ -8,7 +8,8 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	uglify = require('gulp-uglify'),
 	runSequence = require('run-sequence'),
-	zip = require('gulp-zip');
+	zip = require('gulp-zip'),
+	shell = require('gulp-shell');
 	
 var env, outputDir;
 
@@ -56,7 +57,7 @@ gulp.task('jsx-js-ff', function(){
 	.pipe(jshint())
     .pipe(jshint.reporter('default'))
 	.pipe(jshint.reporter('fail'))
-    .pipe(gulp.dest('components/jsx/precompiled/firefox'));
+    .pipe(gulp.dest('components/scripts/preprocessed/firefox'));
 });
 
 gulp.task('jsx-js-chrome', function(){
@@ -72,18 +73,18 @@ gulp.task('jsx-js-chrome', function(){
 	.pipe(jshint())
     .pipe(jshint.reporter('default'))
 	.pipe(jshint.reporter('fail'))
-    .pipe(gulp.dest('components/jsx/precompiled/chrome'));
+    .pipe(gulp.dest('components/scripts/preprocessed/chrome'));
 });
 
 gulp.task('extension-js-ff', function(){
-  return gulp.src('components/jsx/precompiled/firefox/extension.js')
+  return gulp.src('components/scripts/preprocessed/firefox/extension.js')
 	.pipe(browserify())
 	.pipe(gulpif(env === 'production', uglify()))
     .pipe(gulp.dest(outputDir + 'Firefox/data'));
 });
 
 gulp.task('extension-js-chrome', function(){
-  return gulp.src('components/jsx/precompiled/chrome/extension.js')
+  return gulp.src('components/scripts/preprocessed/chrome/extension.js')
 	.pipe(browserify())
 	.pipe(gulpif(env === 'production', uglify()))
     .pipe(gulp.dest(outputDir + 'Chrome'));
@@ -154,3 +155,5 @@ gulp.task('chrome-zip', function() {
 		.pipe(zip('moggo.zip'))
 		.pipe(gulp.dest('dist/chrome'));
 });
+
+gulp.task('jest', shell.task(['npm test']));
