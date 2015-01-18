@@ -6,13 +6,13 @@ module.exports = React.createClass({
 		var items = {};
 		var i = 0;
 		
-		for (var categoryObject in this.props.retrievedCategoriesSettings)
+		for (var category in this.props.retrievedCategoriesSettings)
 		{
-			var currentCategoryObj = this.props.retrievedCategoriesSettings[categoryObject];
+			var currentCategory = this.props.retrievedCategoriesSettings[category];
 
 			items['name-' + i++] = (
 					<li>
-						<CheckboxWithLabel name={currentCategoryObj.category + "_checkbox"} labelOn={currentCategoryObj.name + " - blokkað"} labelOff={currentCategoryObj.name} currentSettings={currentCategoryObj}/>
+						<CheckboxWithLabel name={currentCategory.category + "_checkbox"} labelOn={currentCategory.name + " - blokkað"} labelOff={currentCategory.name} currentSettings={currentCategory}/>
 					</li>
 				);
 		}
