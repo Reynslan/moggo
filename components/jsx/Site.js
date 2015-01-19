@@ -7,7 +7,8 @@ module.exports = {
 		button : "Moggó stillingar",
 		settingsHeading : "Stillingar",
 		categoriesHeading : "Blokka flokk:",
-		keywordsHeading : "Blokka það sem inniheldur:"
+		keywordsHeading : "Blokka það sem inniheldur:",
+		appendToBlockedCategory: " - blokkað"
 	},
 	categories : ["vidskipti", "sport", "folk", "smartland", "bill"],
 	extensionId : "mbl-extension",
