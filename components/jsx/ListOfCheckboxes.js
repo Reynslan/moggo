@@ -1,5 +1,6 @@
 var React = require('react');
 var CheckboxWithLabel = require('./CheckboxWithLabel.js');
+var Site = require('./Site.js');
 
 module.exports = React.createClass({
 	render: function () {
@@ -12,7 +13,7 @@ module.exports = React.createClass({
 
 			items['name-' + i++] = (
 					<li>
-						<CheckboxWithLabel name={currentCategory.category + "_checkbox"} labelOn={currentCategory.name + " - blokkað"} labelOff={currentCategory.name} currentSettings={currentCategory}/>
+						<CheckboxWithLabel name={currentCategory.category + "_checkbox"} labelOn={currentCategory.name + Site.extensionText.appendToBlockedCategory} labelOff={currentCategory.name} currentSettings={currentCategory}/>
 					</li>
 				);
 		}
