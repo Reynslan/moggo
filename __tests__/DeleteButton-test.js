@@ -3,7 +3,7 @@
 jest.dontMock('./../components/jsx/DeleteButton.js');
 
 describe('DeleteButton', function() {
-	it('Button that deletes keyword from the keyword list', function() {
+	it('creates a button that deletes keyword from the keyword list', function() {
 		var React = require('react/addons');
 		var DeleteButton = require('./../components/jsx/DeleteButton.js');
 		var Site = require('./../components/jsx/Site.js');

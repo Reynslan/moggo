@@ -4,7 +4,7 @@ jest.dontMock('./../components/jsx/WordList.js');
 jest.dontMock('./../components/jsx/DeleteButton.js');
 
 describe('WordList', function() {
-	it('changes the text and checked value after click', function() {
+	it('creates a list of keywords', function() {
 		var React = require('react/addons');
 		var WordList = require('./../components/jsx/WordList.js');
 		var TestUtils = React.addons.TestUtils;
