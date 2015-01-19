@@ -11,7 +11,7 @@ describe('ListOfCheckboxes', function() {
 		var Site = require('./../components/jsx/Site.js');
 		var TestUtils = React.addons.TestUtils;
 
-		// Render a checkbox with label in the document
+		// Render a list of checkboxes with label in the document
 		var checkboxlist = TestUtils.renderIntoDocument(
 			<ListOfCheckboxes 
 			retrievedCategoriesSettings={
