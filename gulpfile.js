@@ -29,7 +29,11 @@ gulp.task('default', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch(['components/jsx/*.js', '__tests__/*.js'], ['default']);
+	gulp.watch('components/jsx/*.js', ['default']);
+});
+
+gulp.task('watch-jest', function() {
+	gulp.watch('__tests__/*.js', ['jest']);
 });
 
 gulp.task('firefox', function() {
