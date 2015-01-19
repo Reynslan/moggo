@@ -21,13 +21,9 @@ module.exports = React.createClass({
 		
 		BabelExt.storage.set(Site.extensionId + "Settings", JSON.stringify(settings), function() {});
 		
-		BabelExt.css.add("#" + Site.contentId + " { display: block; }");
-		BabelExt.css.render();
 		routie('');
 	},
 	handleCancelSettings: function () {
-		BabelExt.css.add("#" + Site.contentId + " { display: block; }");
-		BabelExt.css.render();
 		routie('');
 	},
 	render: function () {

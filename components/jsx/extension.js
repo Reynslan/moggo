@@ -27,6 +27,9 @@
 	
 	routie({
         'settings': function() {
+			BabelExt.css.add("#" + Site.contentId + "{ display: none; }");
+			BabelExt.css.render();
+			
 			BabelExt.storage.get(Site.extensionId + "Settings", function(extensionSettings)
 			{
 				React.render(<SettingsPanel retrievedSettings={JSON.parse(extensionSettings.value)}/>, 
@@ -34,20 +37,30 @@
 			});
         },
         '': function() {
+			BabelExt.css.add(Site.mainPanelCss());
+			
 			BabelExt.storage.get(Site.extensionId + "Settings", function(extensionSettings)
 			{
 				if (extensionSettings.value !== undefined && extensionSettings.value !== null)
 				{
-					React.render(<MainPanel retrievedSettings={JSON.parse(extensionSettings.value)} allNewsText={allNewsText}/>, 
+					Site.blockByKeywords(JSON.parse(extensionSettings.value).keywords, allNewsText);
+					Site.blockByCategory(JSON.parse(extensionSettings.value).categories);
+					
+					React.render(<MainPanel/>,
 						document.getElementById(Site.extensionId));
 				}
 				else
 				{
+					Site.blockByKeywords(Site.initSettings.keywords, allNewsText);
+					Site.blockByCategory(Site.initSettings.categories);
+					
 					BabelExt.storage.set(Site.extensionId + "Settings", JSON.stringify(Site.initSettings), function() {});
 					
-					React.render(<MainPanel	retrievedSettings={Site.initSettings} allNewsText={allNewsText}/>, 
+					React.render(<MainPanel/>,
 						document.getElementById(Site.extensionId));
 				}
+				
+				BabelExt.css.render();
 			});
         }
     });
