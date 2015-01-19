@@ -38,14 +38,15 @@ gulp.task('watch-jest', function() {
 
 gulp.task('firefox', function() {
     runSequence('jsx-js-ff',
-                ['extension-js-ff', 'thirdparty-js-ff', 'babelext-js-ff', 'graphics-ff', 'ff-specific-js', 'ff-specific']
+                ['extension-js-ff', 'thirdparty-js-ff', 'babelext-js-ff', 'graphics-ff', 'ff-specific-js', 'ff-specific'],
+                'ff-dist'
                 );
 });
 
 gulp.task('chrome', function() {
     runSequence('jsx-js-chrome',
                 ['extension-js-chrome', 'thirdparty-js-chrome', 'babelext-js-chrome', 'graphics-chrome', 'chrome-specific-js', 'chrome-specific'],
-                'chrome-zip'
+                'chrome-dist'
                 );
 });
 
@@ -154,11 +155,26 @@ gulp.task('clean', function(cb) {
     del(['builds/**/*'], cb);
 });
 
+gulp.task('jest', shell.task(['npm test']));
+
 // Dist tasks
-gulp.task('chrome-zip', function() {
+gulp.task('chrome-dist', function() {
     gulp.src(outputDir + '/chrome/**/*')
         .pipe(zip('moggo.zip'))
         .pipe(gulp.dest('dist/chrome'));
 });
 
-gulp.task('jest', shell.task(['npm test']));
+gulp.task('ff-xpi', shell.task([
+  'cd addon-sdk-1.17/bin & activate & cd.. & cd.. & cd ' + outputDir + 'Firefox & cfx xpi'
+]));
+
+gulp.task('ff-xpi-move', function() {
+    gulp.src(outputDir + '/firefox/*.xpi')
+        .pipe(gulp.dest('dist/firefox'));
+});
+
+gulp.task('ff-dist', function() {
+    runSequence('ff-xpi',
+                'ff-xpi-move'
+                );
+});

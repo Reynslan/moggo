@@ -31,7 +31,8 @@
   },
   "jest": {
     "unmockedModulePathPatterns": ["react"],
-    "scriptPreprocessor": "./preprocessor.js",
+    "rootDir": "components" ,
+    "scriptPreprocessor": "./jsx/__tests__/preprocessor.js",
     "globals": {
         "replace_with_settings_graphic": "",
         "replace_with_boxchecked_graphic" : "",
