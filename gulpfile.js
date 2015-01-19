@@ -23,12 +23,13 @@ if (env==='development') {
 
 gulp.task('default', function() {
 	runSequence('clean',
+				'jest',
 				['firefox', 'chrome']
 				);
 });
 
 gulp.task('watch', function() {
-	gulp.watch('components/jsx/*.js', ['default']);
+	gulp.watch(['components/jsx/*.js', '__tests__/*.js'], ['default']);
 });
 
 gulp.task('firefox', function() {
