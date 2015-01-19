@@ -35,8 +35,8 @@ module.exports = React.createClass({
 		return	(
 					<div>
 						<h1>{Site.extensionText.settingsHeading}</h1>
-						<label onClick={this.handleSaveSettings} id={Site.extensionId + "-save"} className={Site.extensionId + "-ui-border " + Site.extensionId + "-ui-hover " + Site.extensionId + "-ui-clickable"}><img src={replace_with_save_graphic} />Vista</label>
-						<label onClick={this.handleCancelSettings} id={Site.extensionId + "-cancel"} className={Site.extensionId + "-ui-border " + Site.extensionId + "-ui-hover " + Site.extensionId + "-ui-clickable"}><img src={replace_with_cancel_graphic} />Hætta við</label>
+						<label onClick={this.handleSaveSettings} id={Site.extensionId + "-save"} className={Site.extensionId + "-ui-border " + Site.extensionId + "-ui-hover " + Site.extensionId + "-ui-clickable"}><img src={replace_with_save_graphic} />{Site.extensionText.save}</label>
+						<label onClick={this.handleCancelSettings} id={Site.extensionId + "-cancel"} className={Site.extensionId + "-ui-border " + Site.extensionId + "-ui-hover " + Site.extensionId + "-ui-clickable"}><img src={replace_with_cancel_graphic} />{Site.extensionText.cancel}</label>
 						<h3>{Site.extensionText.categoriesHeading}</h3>
 						<ListOfCheckboxes retrievedCategoriesSettings={this.props.retrievedSettings.categories}/>
 						<h3>{Site.extensionText.keywordsHeading}</h3>

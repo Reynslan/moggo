@@ -3,20 +3,29 @@
 var Sizzle = require('sizzle');
 
 module.exports = {
+
 	extensionText : {
 		button : "Moggó stillingar",
 		settingsHeading : "Stillingar",
 		categoriesHeading : "Blokka flokk:",
 		keywordsHeading : "Blokka það sem inniheldur:",
-		appendToBlockedCategory: " - blokkað"
+		appendToBlockedCategory: " - blokkað",
+		save : "Vista",
+		cancel : "Hætta við"
 	},
+	
 	categories : ["vidskipti", "sport", "folk", "smartland", "bill"],
+	
 	extensionId : "mbl-extension",
+	
 	contentId: "main-content",
+	
 	newsItemsSelector : ".topnews, .adalfrett, .teaser, .dategroup .headlines li a",
+	
 	mainPanelCss : function() {
 	return "#" + this.contentId + " { display: block; } #" + this.extensionId + "-open {margin-left:83%;} ." + this.extensionId + "-ui-border {border-radius: 6px;  border: 1px solid; padding: 0.2em; margin: 0.2em} ." + this.extensionId + "-ui-hover:hover {background-color: #bfbfbf;} ." + this.extensionId + "-ui-clickable:hover {cursor: pointer;}";
 	},
+	
 	initSettings : {
 		categories : {
 			vidskipti: {
@@ -47,6 +56,7 @@ module.exports = {
 		},
 		keywords : []
 	},
+	
 	addCategoryClasses : function() {
 		for (var i = 0; i < this.categories.length; i++)
 		{
@@ -58,6 +68,7 @@ module.exports = {
 			}
 		}
 	},
+	
 	addNewsIdsAndGetText : function() {
 		var allNewsItems = document.body.querySelectorAll(this.newsItemsSelector);
 		var allNewsItems_text = [];
@@ -69,6 +80,7 @@ module.exports = {
 		}
 		return allNewsItems_text;
 	},
+	
 	scrapeCategoriesSettings : function() {
 		return {
 			vidskipti:	{
@@ -98,6 +110,7 @@ module.exports = {
 						}	
 		};
 	},
+	
 	blockByKeywords : function(keywords, allNewsText) {
 		for (var i = 0; i < keywords.length; i++)
 		{
@@ -110,6 +123,7 @@ module.exports = {
 			}
 		}
 	},
+	
 	blockByCategory : function(categoriesSettings) {
 		for (var categoryObject in categoriesSettings)
 		{
