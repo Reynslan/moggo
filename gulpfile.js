@@ -156,12 +156,9 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('jest', function() {
-    if (env !== 'production')
-    {
-        shell.task(['npm test'])
-    }
+    return gulp.src('')
+    .pipe(gulpif(env !== 'production', shell(['npm test'])))
 });
-     
 
 // Dist tasks
 gulp.task('chrome-dist', function() {
