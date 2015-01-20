@@ -155,7 +155,13 @@ gulp.task('clean', function(cb) {
     del(['builds/**/*'], cb);
 });
 
-gulp.task('jest', shell.task(['npm test']));
+gulp.task('jest', function() {
+    if (env !== 'production')
+    {
+        shell.task(['npm test'])
+    }
+});
+     
 
 // Dist tasks
 gulp.task('chrome-dist', function() {
