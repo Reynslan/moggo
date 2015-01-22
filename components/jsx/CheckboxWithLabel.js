@@ -1,5 +1,6 @@
 var React = require('react');
 var Site = require('./Site.js');
+var Ids = require('./Ids.js');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -15,7 +16,7 @@ module.exports = React.createClass({
                 display: "none"
             };
             return (
-                <label className={Site.extensionId + "-ui-clickable"} id={this.props.name}>
+                <label className={Ids.extension + "-ui-clickable"} id={this.props.name}>
                     <input
                         style={inputStyle}
                         type="checkbox"

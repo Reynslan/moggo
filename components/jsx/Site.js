@@ -1,6 +1,8 @@
 //mbl.is
 
 var Sizzle = require('sizzle');
+var Methods = require('./Methods_replace_with_Browser_');
+var Ids = require('./Ids.js');
 
 module.exports = {
 
@@ -16,15 +18,7 @@ module.exports = {
     
     categories : ["vidskipti", "sport", "folk", "smartland", "bill"],
     
-    extensionId : "mbl-extension",
-    
-    contentId: "main-content",
-    
     newsItemsSelector : ".topnews, .adalfrett, .teaser, .dategroup .headlines li a",
-    
-    mainPanelCss : function() {
-    return "#" + this.contentId + " { display: block; } #" + this.extensionId + "-open {margin-left:83%;} ." + this.extensionId + "-ui-border {border-radius: 6px;  border: 1px solid; padding: 0.2em; margin: 0.2em} ." + this.extensionId + "-ui-hover:hover {background-color: #bfbfbf;} ." + this.extensionId + "-ui-clickable:hover {cursor: pointer;}";
-    },
     
     initSettings : {
         categories : {
@@ -64,7 +58,7 @@ module.exports = {
             
             for (var j = 0; j < blockableElements.length; j++)
             {
-                blockableElements[j].className += " " + this.extensionId + "-" + this.categories[i];
+                blockableElements[j].className += " " + Ids.extension + "-" + this.categories[i];
             }
         }
     },
@@ -76,7 +70,7 @@ module.exports = {
         for (var k = 0; k < allNewsItems.length; k++)
         {
             allNewsItems_text.push(allNewsItems[k].textContent.replace(/[\u00AD]+|Meira\s*$/g,'').toLowerCase());
-            allNewsItems[k].id = this.extensionId + "-id-" + k;
+            allNewsItems[k].id = Ids.extension + "-id-" + k;
         }
         return allNewsItems_text;
     },
@@ -111,34 +105,8 @@ module.exports = {
         };
     },
     
-    blockByKeywords : function(keywords, allNewsText) {
-        for (var i = 0; i < keywords.length; i++)
-        {
-            for(var j = 0; j < allNewsText.length; j++)
-            {
-                if (allNewsText[j].indexOf(keywords[i]) != -1)
-                {
-                    BabelExt.css.add("#" + this.extensionId + "-id-" + j + " { display: none; }");
-                }
-            }
-        }
-    },
-    
-    blockByCategory : function(categoriesSettings) {
-        for (var categoryObject in categoriesSettings)
-        {
-            var currentCategoryObj = categoriesSettings[categoryObject];
-
-            if (currentCategoryObj.isBlocked)
-            {
-                BabelExt.css.add("." + this.extensionId + "-" + currentCategoryObj.category + ", .theme_" + currentCategoryObj.category + " { display: none; }");
-                BabelExt.css.add(".padding div div .dategroup .headlines li a[href^='/" + currentCategoryObj.category +"/'] { display: none; }");
-            }
-            else
-            {
-                BabelExt.css.add("." + this.extensionId + "-" + currentCategoryObj.category + ", .theme_" + currentCategoryObj.category + "{ display: block; }");
-                BabelExt.css.add(".padding div div .dategroup .headlines li a[href^='/" + currentCategoryObj.category +"/'] { display: inline; }");
-            }
-        }
-    }
+    //Browser specific methods
+    mainPanelCss : Methods.mainPanelCss,
+    blockByKeywords : Methods.blockByKeywords,
+    blockByCategory : Methods.blockByCategory
 };

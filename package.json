@@ -12,6 +12,7 @@
     "gulp": "^3.8.10",
     "gulp-browserify": "^0.5.1",
     "gulp-if": "^1.2.5",
+    "gulp-jest": "^0.3.0",
     "gulp-jshint": "^1.9.0",
     "gulp-react": "^2.0.0",
     "gulp-replace": "^0.5.0",
@@ -19,29 +20,11 @@
     "gulp-uglify": "^1.0.2",
     "gulp-util": "^3.0.2",
     "gulp-zip": "^2.0.2",
-    "jest-cli": "^0.2.1",
     "lodash": "^2.4.1",
     "react": "^0.12.2",
     "react-tools": "^0.12.2",
     "run-sequence": "^1.0.2",
     "sizzle": "^2.1.1"
-  },
-  "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "unmockedModulePathPatterns": ["react"],
-    "rootDir": "components" ,
-    "scriptPreprocessor": "./preprocessor.js",
-    "globals": {
-        "replace_with_settings_graphic": "",
-        "replace_with_boxchecked_graphic" : "",
-        "replace_with_boxblank_graphic": "",
-        "replace_with_delete_graphic" : "",
-        "replace_with_addcircle_graphic": "",
-        "replace_with_save_graphic" : "",
-        "replace_with_cancel_graphic": ""
-    }
   },
   "license": "GPL-3.0",
   "readmeFilename": "README.md"

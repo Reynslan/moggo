@@ -9,7 +9,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
     zip = require('gulp-zip'),
-    shell = require('gulp-shell');
+    shell = require('gulp-shell'),
+    jest = require('gulp-jest');
     
 var env, outputDir;
 
@@ -17,28 +18,35 @@ env = process.env.NODE_ENV || 'development';
 
 if (env==='development') {
     outputDir = 'builds/development/';
-} else {
-    outputDir = 'builds/production/';
-}
-
-gulp.task('default', function() {
+    
+    gulp.task('default', function() {
     runSequence('clean',
-                'jest',
+                'unit-test',
                 ['firefox', 'chrome']
                 );
-});
+    });
+} else {
+    outputDir = 'builds/production/';
+    
+    gulp.task('default', function() {
+    runSequence('clean',
+                /* jest bugged with NODE_ENV=production, so skip it*/
+                ['firefox', 'chrome']
+                );
+    });
+}
 
 gulp.task('watch', function() {
     gulp.watch('components/jsx/*.js', ['default']);
 });
 
 gulp.task('watch-jest', function() {
-    gulp.watch('__tests__/*.js', ['jest']);
+    gulp.watch('components/__tests__/*.js', ['unit-test']);
 });
 
 gulp.task('firefox', function() {
     runSequence('jsx-js-ff',
-                ['extension-js-ff', 'thirdparty-js-ff', 'babelext-js-ff', 'graphics-ff', 'ff-specific-js', 'ff-specific'],
+                ['extension-js-ff', 'thirdparty-js-ff', 'graphics-ff', 'ff-specific-js', 'ff-specific'],
                 'ff-dist'
                 );
 });
@@ -59,6 +67,7 @@ gulp.task('jsx-js-ff', function(){
     .pipe(replace('replace_with_addcircle_graphic', 'self.options.pngUrl_addCircle'))
     .pipe(replace('replace_with_save_graphic', 'self.options.pngUrl_save'))
     .pipe(replace('replace_with_cancel_graphic', 'self.options.pngUrl_cancel'))
+    .pipe(replace('_replace_with_Browser_', 'Firefox'))
     .pipe(react())
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -75,6 +84,7 @@ gulp.task('jsx-js-chrome', function(){
     .pipe(replace('replace_with_addcircle_graphic', 'chrome.extension.getURL("graphics/ic_add_circle_black_24dp.png")'))
     .pipe(replace('replace_with_save_graphic', 'chrome.extension.getURL("graphics/ic_save_black_24dp.png")'))
     .pipe(replace('replace_with_cancel_graphic', 'chrome.extension.getURL("graphics/ic_cancel_black_24dp.png")'))
+    .pipe(replace('_replace_with_Browser_', 'Chrome'))
     .pipe(react())
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -106,12 +116,6 @@ gulp.task('thirdparty-js-chrome', function() {
     gulp.src('components/scripts/thirdparty/*.js')
         .pipe(gulpif(env === 'production', uglify()))
         .pipe(gulp.dest(outputDir + 'Chrome/thirdparty'));
-});
-
-gulp.task('babelext-js-ff', function() {
-    return gulp.src('components/scripts/BabelExt.js')
-        .pipe(gulpif(env === 'production', uglify()))
-        .pipe(gulp.dest(outputDir + 'Firefox/data'));
 });
 
 gulp.task('babelext-js-chrome', function() {
@@ -155,9 +159,36 @@ gulp.task('clean', function(cb) {
     del(['builds/**/*'], cb);
 });
 
-gulp.task('jest', function() {
-    return gulp.src('')
-    .pipe(gulpif(env !== 'production', shell(['npm test'])))
+gulp.task('unit-test', function() {
+    runSequence('make-jestable',
+                'jest'
+                );
+});
+
+gulp.task('make-jestable', function () {
+    return gulp.src('components/jsx/*.js')
+        .pipe(replace('_replace_with_Browser_', 'Firefox'))
+        .pipe(gulp.dest('components/jsx/jestable'));
+});
+
+gulp.task('jest', function () {
+    return gulp.src('components/__tests__')
+        .pipe(jest({
+        rootDir: "components",
+        scriptPreprocessor: "./preprocessor.js",
+        unmockedModulePathPatterns: [
+            "react"
+        ],
+        globals: {
+            "replace_with_settings_graphic": "",
+            "replace_with_boxchecked_graphic": "",
+            "replace_with_boxblank_graphic": "",
+            "replace_with_delete_graphic": "",
+            "replace_with_addcircle_graphic": "",
+            "replace_with_save_graphic": "",
+            "replace_with_cancel_graphic": ""
+        }
+    }));
 });
 
 // Dist tasks

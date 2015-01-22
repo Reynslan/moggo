@@ -2,6 +2,7 @@ addon-sdk-1.17
 node_modules
 builds
 dist
+components/jsx/jestable
 components/scripts/preprocessed
 components/scripts/BabelExt.js
 components/scripts/thirdparty

@@ -9,6 +9,6 @@ Features:
 
 Made with:
 
-* [BabelExt](http://babelext.com/)
+* [BabelExt (now only in chrome)](http://babelext.com/)
 * [React](https://facebook.github.io/react/)
 * [Material design icons from google](https://github.com/google/material-design-icons)

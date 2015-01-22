@@ -2,6 +2,8 @@ var React = require('react');
 var ListOfCheckboxes = require('./ListOfCheckboxes.js');
 var KeywordFilter = require('./KeywordFilter.js');
 var Site = require('./Site.js');
+var Methods = require('./Methods_replace_with_Browser_');
+var Ids = require('./Ids.js');
 
 module.exports = React.createClass({
     handleSaveSettings: function () {
@@ -19,7 +21,7 @@ module.exports = React.createClass({
             keywords : keywords
         };
         
-        BabelExt.storage.set(Site.extensionId + "Settings", JSON.stringify(settings), function() {});
+        Methods.save(settings);
         
         routie('');
     },
@@ -31,8 +33,8 @@ module.exports = React.createClass({
         return  (
                     <div>
                         <h1>{Site.extensionText.settingsHeading}</h1>
-                        <label onClick={this.handleSaveSettings} id={Site.extensionId + "-save"} className={Site.extensionId + "-ui-border " + Site.extensionId + "-ui-hover " + Site.extensionId + "-ui-clickable"}><img src={replace_with_save_graphic} />{Site.extensionText.save}</label>
-                        <label onClick={this.handleCancelSettings} id={Site.extensionId + "-cancel"} className={Site.extensionId + "-ui-border " + Site.extensionId + "-ui-hover " + Site.extensionId + "-ui-clickable"}><img src={replace_with_cancel_graphic} />{Site.extensionText.cancel}</label>
+                        <label onClick={this.handleSaveSettings} id={Ids.extension + "-save"} className={Ids.extension + "-ui-border " + Ids.extension + "-ui-hover " + Ids.extension + "-ui-clickable"}><img src={replace_with_save_graphic} />{Site.extensionText.save}</label>
+                        <label onClick={this.handleCancelSettings} id={Ids.extension + "-cancel"} className={Ids.extension + "-ui-border " + Ids.extension + "-ui-hover " + Ids.extension + "-ui-clickable"}><img src={replace_with_cancel_graphic} />{Site.extensionText.cancel}</label>
                         <h3>{Site.extensionText.categoriesHeading}</h3>
                         <ListOfCheckboxes retrievedCategoriesSettings={this.props.retrievedSettings.categories}/>
                         <h3>{Site.extensionText.keywordsHeading}</h3>

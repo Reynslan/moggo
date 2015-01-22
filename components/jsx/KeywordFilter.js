@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require('lodash');
 var WordList = require('./WordList.js');
 var Site = require('./Site.js');
+var Ids = require('./Ids.js');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -35,8 +36,8 @@ module.exports = React.createClass({
                     <div>
                         <WordList items={this.state.items} handleDelete={this.handleDelete}/>
                         <form onSubmit={this.handleSubmit}>
-                            <input id={Site.extensionId + "-keyword-input"} onChange={this.onChange} value={this.state.text} />
-                            <img id={Site.extensionId + "-addbutton"} src={replace_with_addcircle_graphic} onClick={this.handleSubmit} className={Site.extensionId + "-clickable"}/>
+                            <input id={Ids.extension + "-keyword-input"} onChange={this.onChange} value={this.state.text} />
+                            <img id={Ids.extension + "-addbutton"} src={replace_with_addcircle_graphic} onClick={this.handleSubmit} className={Ids.extension + "-clickable"}/>
                         </form>
                     </div>
                 );
