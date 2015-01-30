@@ -13,8 +13,6 @@ describe('MainPanel', function() {
         var mainPnl = TestUtils.renderIntoDocument(
             <MainPanel/>
         );
-        
-        mainPnl.handleOpenSettings = jest.genMockFn();
 
         // Verify that it's created a button for the extension
         var extensionBtn = TestUtils.findRenderedDOMComponentWithTag(mainPnl, 'label');
