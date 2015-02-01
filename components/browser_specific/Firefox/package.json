@@ -5,7 +5,7 @@
 	"description": "Enhance mbl.is",
 	"author": "Reynslan",
 	"license": "GPL",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"permissions": {
 		"private-browsing": true,
 		"unsafe-content-script": true
