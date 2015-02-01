@@ -54,7 +54,7 @@ module.exports = {
     addCategoryClasses : function() {
         for (var i = 0; i < this.categories.length; i++)
         {
-            var blockableElements = Sizzle(".teaser:has(a[href^='/" + this.categories[i] +"/']), .adalfrett:has(a[href^='/" + this.categories[i] +"/']), .dlk-12 .headlines:has(a[href^='/" + this.categories[i] +"/'])");
+            var blockableElements = Sizzle(".teaser:has(a[href^='/" + this.categories[i] +"/']), .topnews:has(a[href^='/" + this.categories[i] +"/']), .adalfrett:has(a[href^='/" + this.categories[i] +"/']), .dlk-12 .headlines:has(a[href^='/" + this.categories[i] +"/'])");
             
             for (var j = 0; j < blockableElements.length; j++)
             {
