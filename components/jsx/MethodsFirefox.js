@@ -58,6 +58,9 @@ module.exports = {
                     ],
                     [".padding div div .dategroup .headlines li a[href^='/" + currentCategory.category +"/']",
                         ["display", "none"]
+                    ],
+                    ["#helstu-frettir .dategroup .headlines li a[href^='/" + currentCategory.category +"/']",
+                        ["display", "none"]
                     ]
                 ]);
             }
@@ -71,6 +74,9 @@ module.exports = {
                         ["display", "block"]
                     ],
                     [".padding div div .dategroup .headlines li a[href^='/" + currentCategory.category +"/']",
+                        ["display", "inline"]
+                    ],
+                    ["#helstu-frettir .dategroup .headlines li a[href^='/" + currentCategory.category +"/']",
                         ["display", "inline"]
                     ]
                 ]);

@@ -27,11 +27,13 @@ module.exports = {
             {
                 BabelExt.css.add("." + Ids.extension + "-" + currentCategory.category + ", .theme_" + currentCategory.category + " { display: none; }");
                 BabelExt.css.add(".padding div div .dategroup .headlines li a[href^='/" + currentCategory.category +"/'] { display: none; }");
+                BabelExt.css.add("#helstu-frettir .dategroup .headlines li a[href^='/" + currentCategory.category +"/'] { display: none; }");
             }
             else
             {
                 BabelExt.css.add("." + Ids.extension + "-" + currentCategory.category + ", .theme_" + currentCategory.category + "{ display: block; }");
                 BabelExt.css.add(".padding div div .dategroup .headlines li a[href^='/" + currentCategory.category +"/'] { display: inline; }");
+                BabelExt.css.add("#helstu-frettir .dategroup .headlines li a[href^='/" + currentCategory.category +"/'] { display: inline; }");
             }
         }
     },
